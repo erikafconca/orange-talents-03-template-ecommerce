@@ -13,17 +13,17 @@ public class Usuario {
     private String email;
     @Column(nullable = false)
     private String senha;
-    @Column(nullable = false)
-    private LocalDateTime instanteCriacao;
+    @Column(nullable = false) @PastOrPresent
+    private LocalDateTime createAt = LocalDateTime.now();
 
     @Deprecated
     public Usuario() {
     }
 
-    public Usuario(String email, String senha, LocalDateTime instanteCriacao) {
+    public Usuario(String email, String senha) {
         this.email = email;
         this.senha = senha;
-        this.instanteCriacao = instanteCriacao;
+
     }
 
     public Long getId() {
@@ -38,7 +38,4 @@ public class Usuario {
         return senha;
     }
 
-    public LocalDateTime getInstanteCriacao() {
-        return instanteCriacao;
-    }
 }

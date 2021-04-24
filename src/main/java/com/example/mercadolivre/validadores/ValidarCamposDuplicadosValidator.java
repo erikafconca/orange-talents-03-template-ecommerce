@@ -6,12 +6,9 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.List;
 
-public class ValidarCamposDuplicadosValidator implements ConstraintValidator <ValidarCamposDuplicados, Object>{
-
+public class ValidarCamposDuplicadosValidator implements ConstraintValidator<ValidarCamposDuplicados, Object> {
     private String campo;
     private Class<?> aClass;
-
-
     private EntityManager entityManager;
 
     public ValidarCamposDuplicadosValidator(EntityManager entityManager) {
@@ -27,11 +24,11 @@ public class ValidarCamposDuplicadosValidator implements ConstraintValidator <Va
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext context) {
         Query query = entityManager.createQuery(
-                "SELECT r FROM " + aClass.getName() + " r WHERE r." + campo + " = :pValor")
+                "SELECT r FROM " + aClass.getName() + " r WHERE r." + campo
+                        + " = :pValor")
                 .setParameter("pValor", value);
         List<String> lista = query.getResultList();
 
         return lista.isEmpty();
     }
 }
-

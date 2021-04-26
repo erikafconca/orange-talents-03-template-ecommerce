@@ -1,11 +1,17 @@
 package com.example.mercadolivre.usuario;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
+import javax.persistence.criteria.Fetch;
 import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
-public class Usuario {
+public class Usuario implements UserDetails {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,14 +21,16 @@ public class Usuario {
     private String senha;
     @Column(nullable = false) @PastOrPresent
     private LocalDateTime createAt = LocalDateTime.now();
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List <Perfil> perfis;
 
     @Deprecated
     public Usuario() {
     }
 
-    public Usuario(String email, String senha) {
+    public Usuario(String email, SenhaLimpa senhaLimpa) {
         this.email = email;
-        this.senha = senha;
+        this.senha = senhaLimpa.hash();
 
     }
 
@@ -38,4 +46,38 @@ public class Usuario {
         return senha;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return perfis;
+    }
+
+    @Override
+    public String getPassword() {
+        return senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

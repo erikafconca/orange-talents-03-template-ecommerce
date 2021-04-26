@@ -27,6 +27,6 @@ public class UsuarioRequest {
 
 
     public Usuario toUsuario() {
-        return new Usuario(email, senha );
+        return new Usuario(email, new SenhaLimpa(senha) );
     }
 }

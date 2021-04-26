@@ -1,12 +1,10 @@
 package com.example.mercadolivre.categoria;
 
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("categorias")
@@ -22,5 +20,10 @@ public class CategoriaController {
     public Categoria salvarCategoria(@RequestBody @Valid CategoriaRequest categoriaRequest){
         System.out.println(categoriaRequest);
         return repository.save(categoriaRequest.toCategoria());
+    }
+
+    @GetMapping
+    public List<Categoria> listarCategoria(){
+        return repository.findAll();
     }
 }

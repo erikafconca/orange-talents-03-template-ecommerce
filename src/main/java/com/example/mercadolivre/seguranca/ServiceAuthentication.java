@@ -2,7 +2,6 @@ package com.example.mercadolivre.seguranca;
 
 import com.example.mercadolivre.usuario.Usuario;
 import com.example.mercadolivre.usuario.UsuarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,18 +10,21 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class ServiceAutentication implements UserDetailsService {
+public class ServiceAuthentication  implements UserDetailsService {
 
-    @Autowired
     private UsuarioRepository repository;
 
+    public ServiceAuthentication(UsuarioRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Usuario> optional = repository.findByEmail(username);
-        if (optional.isPresent()){
-            return optional.get();
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        Optional<Usuario> optUsuario = repository.findByEmail(s);
+        if(optUsuario.isPresent()){
+            return optUsuario.get();
         }
-        throw new UsernameNotFoundException("Dados inválidos");
+
+        throw new UsernameNotFoundException("Dados Inválidos");
     }
 }

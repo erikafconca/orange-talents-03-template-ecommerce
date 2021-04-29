@@ -1,6 +1,7 @@
 package com.example.mercadolivre.categoria;
 
 import com.example.mercadolivre.validadores.Groups;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -15,6 +16,7 @@ public class Categoria {
     private String nome;
 
     @ManyToOne
+    @JsonIgnore
     private Categoria categoriaMae;
 
 

@@ -34,7 +34,7 @@ public class FotoRequest {
         if(seEmailLogado){
             return new Foto(linkImagem, produto);
         }
-        throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Produto nao permitido para usuario");
+        throw new ResponseStatusException(HttpStatus.FORBIDDEN,"Produto nao permitido para usuario");
     }
 
     @Override

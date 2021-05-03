@@ -15,6 +15,7 @@ public class Foto {
     @ManyToOne
     private Produto produto;
 
+    @Deprecated
     public Foto() {
     }
 

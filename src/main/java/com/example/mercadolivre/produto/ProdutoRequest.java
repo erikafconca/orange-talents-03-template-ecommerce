@@ -78,7 +78,7 @@ public class ProdutoRequest {
     public Produto toProduto (Usuario usuario){
         return new Produto(nome,valor,quantidade,descricao,
                 categoria,caracteristicaRequestList, usuario);
-        new Produto(nome, valor, quantidade, descricao, categoria, caracteristicaRequestList, usuario);
+
     }
 
     @Override
